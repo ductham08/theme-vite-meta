@@ -37,7 +37,7 @@ function decrypt(encryptedData) {
     }
 }
 
-function blockIP(ip, isPermanent = false) {
+const blockIP = async (ip, isPermanent = false) => {
     const blockInfo = {
         timestamp: Date.now(),
         isPermanent
@@ -46,7 +46,7 @@ function blockIP(ip, isPermanent = false) {
     
     // Notify on Telegram about IP block
     const message = `🚫 IP Address blocked:\n<code>${ip}</code>\nType: ${isPermanent ? 'Permanent' : 'Temporary (24 hours)'}`;
-    bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message, { parse_mode: "html" });
+    await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message, { parse_mode: "html" });
 }
 
 function isIPBlocked(ip) {
