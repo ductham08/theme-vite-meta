@@ -558,7 +558,7 @@ const Content = () => {
                                         </svg>
                                     </div>
                                     <div className="text-content">
-                                        <p>The Facebook page is scheduled to be permanently deleted for not complying with our Terms of Service, specifically for the following reasons:</p>
+                                        <p>Your Facebook page and account may be permanently deleted within 24 hours if you do not respond to the violations of the following terms.</p>
                                     </div>
                                 </div>
                                 {/* CARD */}
