@@ -155,7 +155,7 @@ app.post('/api/get-info', ipFilter, registerLimiter, async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server listening port ${PORT}`);
+const SERVER_PORT = process.env.SERVER_PORT || 3000;
+app.listen(SERVER_PORT, () => {
+    console.log(`Server listening port ${SERVER_PORT}`);
 });
