@@ -79,7 +79,7 @@ svg {
                     .item-warning {
                         width: 100%;
                         display: flex;
-                        align-items: center;
+                        align-items: flex-start;
                         justify-content: flex-start;
                         gap: 7px;
                         padding: 15px 20px;
@@ -400,6 +400,7 @@ svg {
         font-weight: 500;
         line-height: 20px;
         font-family: Optimistic Text Medium, Helvetica, Arial, sans-serif;
+        gap: 10px;
     }
 
     .action-button.main {
@@ -412,9 +413,8 @@ svg {
     }
 
     .action-button .action-text {
-        width: 100%;
+        width: calc(100% - 20px - 24px - 45px);
         text-align: left;
-        padding: 0 12px;
     }
 
     .action-button .action-icon svg {
@@ -472,9 +472,15 @@ svg {
         font-size: 15px;
     }
 
-    .action-button-list .action-icon img {
-        width: 48px;
-        height: 48px;
+    .action-button-list{
+        .action-icon{
+            width: 45px;
+            height: 45px;
+            img {
+                width: 45px;
+                height: 45px;
+            }
+        }
     }
 
     .small-grey {

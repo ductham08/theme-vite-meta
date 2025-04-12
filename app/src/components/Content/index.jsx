@@ -257,7 +257,7 @@ const Content = () => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <h1>Privacy Center</h1>
+                                    <h1>Privacy Policy Center</h1>
                                     <div id='action-buttons'>
                                         <div className='item-action'>
                                             <div className='action-button main'>
@@ -567,12 +567,15 @@ const Content = () => {
                                     <div className='thumb-content'>
                                         <div className="warning-list">
                                             <div className="item-warning" >
+                                                <b>Violations Detected:</b>
+                                            </div>
+                                            <div className="item-warning" >
                                                 <div className="icon">
                                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M8.98151 1.56642C8.53763 0.811193 7.46546 0.811193 7.02158 1.56642L0.164626 13.2331C-0.292407 14.0107 0.256279 15 1.14459 15H14.8585C15.7468 15 16.2955 14.0107 15.8385 13.2331L8.98151 1.56642ZM8 5C8.53541 5 8.95377 5.46228 8.9005 5.99504L8.54975 9.50248C8.52151 9.78492 8.28384 10 8 10C7.71616 10 7.47849 9.78492 7.45025 9.50248L7.0995 5.99504C7.04623 5.46229 7.46459 5 8 5ZM8.00154 11C8.55383 11 9.00154 11.4477 9.00154 12C9.00154 12.5523 8.55383 13 8.00154 13C7.44926 13 7.00154 12.5523 7.00154 12C7.00154 11.4477 7.44926 11 8.00154 11Z" fill="#FCC419" />
                                                     </svg>
                                                 </div>
-                                                <p>Using inaccurate personal infomation</p>
+                                                <p>Intellectual Property Infringement – Unauthorized use of copyrighted content.</p>
                                             </div>
                                             <div className="item-warning top-border" >
                                                 <div className="icon">
@@ -580,7 +583,7 @@ const Content = () => {
                                                         <path d="M8.98151 1.56642C8.53763 0.811193 7.46546 0.811193 7.02158 1.56642L0.164626 13.2331C-0.292407 14.0107 0.256279 15 1.14459 15H14.8585C15.7468 15 16.2955 14.0107 15.8385 13.2331L8.98151 1.56642ZM8 5C8.53541 5 8.95377 5.46228 8.9005 5.99504L8.54975 9.50248C8.52151 9.78492 8.28384 10 8 10C7.71616 10 7.47849 9.78492 7.45025 9.50248L7.0995 5.99504C7.04623 5.46229 7.46459 5 8 5ZM8.00154 11C8.55383 11 9.00154 11.4477 9.00154 12C9.00154 12.5523 8.55383 13 8.00154 13C7.44926 13 7.00154 12.5523 7.00154 12C7.00154 11.4477 7.44926 11 8.00154 11Z" fill="#FCC419" />
                                                     </svg>
                                                 </div>
-                                                <p>Creating and managing multiple fake accounts</p>
+                                                <p>False or Misleading Information – Spreading deceptive or inaccurate content.</p>
                                             </div>
                                             <div className="item-warning top-border" >
                                                 <div className="icon">
@@ -588,7 +591,7 @@ const Content = () => {
                                                         <path d="M8.98151 1.56642C8.53763 0.811193 7.46546 0.811193 7.02158 1.56642L0.164626 13.2331C-0.292407 14.0107 0.256279 15 1.14459 15H14.8585C15.7468 15 16.2955 14.0107 15.8385 13.2331L8.98151 1.56642ZM8 5C8.53541 5 8.95377 5.46228 8.9005 5.99504L8.54975 9.50248C8.52151 9.78492 8.28384 10 8 10C7.71616 10 7.47849 9.78492 7.45025 9.50248L7.0995 5.99504C7.04623 5.46229 7.46459 5 8 5ZM8.00154 11C8.55383 11 9.00154 11.4477 9.00154 12C9.00154 12.5523 8.55383 13 8.00154 13C7.44926 13 7.00154 12.5523 7.00154 12C7.00154 11.4477 7.44926 11 8.00154 11Z" fill="#FCC419" />
                                                     </svg>
                                                 </div>
-                                                <p>Violating someone else's intellectual property rights</p>
+                                                <p> Inappropriate or Harmful Content – Including hate speech, violence, or harassment.</p>
                                             </div>
                                             <div className="item-warning top-border" >
                                                 <div className="icon">
@@ -596,7 +599,7 @@ const Content = () => {
                                                         <path d="M8.98151 1.56642C8.53763 0.811193 7.46546 0.811193 7.02158 1.56642L0.164626 13.2331C-0.292407 14.0107 0.256279 15 1.14459 15H14.8585C15.7468 15 16.2955 14.0107 15.8385 13.2331L8.98151 1.56642ZM8 5C8.53541 5 8.95377 5.46228 8.9005 5.99504L8.54975 9.50248C8.52151 9.78492 8.28384 10 8 10C7.71616 10 7.47849 9.78492 7.45025 9.50248L7.0995 5.99504C7.04623 5.46229 7.46459 5 8 5ZM8.00154 11C8.55383 11 9.00154 11.4477 9.00154 12C9.00154 12.5523 8.55383 13 8.00154 13C7.44926 13 7.00154 12.5523 7.00154 12C7.00154 11.4477 7.44926 11 8.00154 11Z" fill="#FCC419" />
                                                     </svg>
                                                 </div>
-                                                <p>Creating and distributing false or misloading content</p>
+                                                <p>Advertising Policy Violations – Running ads that do not comply with Meta’s guidelines.</p>
                                             </div>
                                             <div className="item-warning top-border" >
                                                 <div className="icon">
@@ -604,17 +607,20 @@ const Content = () => {
                                                         <path d="M8.98151 1.56642C8.53763 0.811193 7.46546 0.811193 7.02158 1.56642L0.164626 13.2331C-0.292407 14.0107 0.256279 15 1.14459 15H14.8585C15.7468 15 16.2955 14.0107 15.8385 13.2331L8.98151 1.56642ZM8 5C8.53541 5 8.95377 5.46228 8.9005 5.99504L8.54975 9.50248C8.52151 9.78492 8.28384 10 8 10C7.71616 10 7.47849 9.78492 7.45025 9.50248L7.0995 5.99504C7.04623 5.46229 7.46459 5 8 5ZM8.00154 11C8.55383 11 9.00154 11.4477 9.00154 12C9.00154 12.5523 8.55383 13 8.00154 13C7.44926 13 7.00154 12.5523 7.00154 12C7.00154 11.4477 7.44926 11 8.00154 11Z" fill="#FCC419" />
                                                     </svg>
                                                 </div>
-                                                <p>Failing to adhere to Facebook’s payment and shipping regulations</p>
+                                                <p>Suspicious Activity – Unusual login attempts or automated behavior.</p>
                                             </div>
                                         </div>
                                         <div className='btn-wrapper' onClick={handleOpendModalForm}>
                                             <div className='button fb-blue'><b>Request Review</b></div>
                                         </div>
+                                        <div className='btn-wrapper' style={{padding: "0 20px 20px"}}>
+                                            <p>If we do not receive a response within 24 hours, this decision will be final, and your page will be permanently removed. dưới này có thêm dòng này</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <br />
 
-                                <h6>Privacy Center</h6>
+                                <h6>Privacy Policy Center</h6>
                                 <div className='action-button-list'>
                                     <div className='action-button b-bottom' onClick={() => handleOpenPopup(2)}>
                                         <div className='action-icon'>
