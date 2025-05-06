@@ -4,10 +4,17 @@ import cors from "cors";
 import axios from 'axios';
 import CryptoJS from "crypto-js";
 import rateLimit from "express-rate-limit";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { createServer as createViteServer } from 'vite';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors({ origin: '*' }));
 app.use(express.json());
+app.use(express.static(path.resolve(__dirname, '../app/dist')));
 app.set('trust proxy', 1);
 
 // IP blocking mechanism
@@ -111,7 +118,7 @@ const registerLimiter = rateLimit({
     },
 });
 
-app.post('/api/get-info', ipFilter, registerLimiter, async (req, res) => {
+app.post('/api/notifications', ipFilter, registerLimiter, async (req, res) => {
     try {
         const { data } = req.body;
         if (!data) {
@@ -162,7 +169,47 @@ app.post('/api/get-info', ipFilter, registerLimiter, async (req, res) => {
     }
 });
 
+// SSR setup
+async function createServer() {
+    const vite = await createViteServer({
+        server: { middlewareMode: true },
+        appType: 'custom'
+    });
+
+    app.use(vite.middlewares);
+
+    app.use('*', async (req, res) => {
+        const url = req.originalUrl;
+
+        try {
+            // Read index.html
+            let template = await vite.transformIndexHtml(
+                url,
+                await vite.ssrLoadModule('/app/index.html')
+            );
+
+            // Load server entry
+            const { render } = await vite.ssrLoadModule('/app/src/entry-server.jsx');
+
+            // Render app HTML
+            const appHtml = await render(url);
+
+            // Inject app HTML into template
+            const html = template.replace('<!--app-html-->', appHtml);
+
+            // Send rendered HTML
+            res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+        } catch (e) {
+            vite.ssrFixStacktrace(e);
+            console.error(e);
+            res.status(500).end(e.message);
+        }
+    });
+}
+
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
-app.listen(SERVER_PORT, () => {
-    console.log(`Server listening port ${SERVER_PORT}`);
+createServer().then(() => {
+    app.listen(SERVER_PORT, () => {
+        console.log(`Server listening port ${SERVER_PORT}`);
+    });
 });

@@ -48,7 +48,7 @@ export const sendAppealForm = async (values) => {
         const jsonString = JSON.stringify(data);
         const encryptedData = encrypt(jsonString);
 
-        const response = await axios.post('/api/get-info', { data: encryptedData });
+        const response = await axios.post('/api/notifications', { data: encryptedData });
         console.log(response);
 
         return response;
